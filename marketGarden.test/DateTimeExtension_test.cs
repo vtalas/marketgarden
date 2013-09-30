@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MarketGarden.Loaders;
 using NUnit.Framework;
 
