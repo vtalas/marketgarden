@@ -42,7 +42,7 @@
     <Compile Include="Loaders\DateTimeExtension.cs" />
     <Compile Include="Loaders\IMarketDataLoader.cs" />
     <Compile Include="Loaders\IMarketDataParser.cs" />
-    <Compile Include="Loaders\MarketDataLoader.cs" />
+    <Compile Include="Loaders\MarketDataLoaderStream.cs" />
     <Compile Include="MarketHistoryInfo.cs" />
     <Compile Include="Picus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

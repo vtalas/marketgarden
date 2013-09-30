@@ -7,17 +7,15 @@ namespace MarketGarden.Loaders
 	public interface IMarketDataParser
 	{
 		Picus ParseRecord(string record);
+		long ParseDate(string record);
 	}
 
 	public class ParserCSV : IMarketDataParser
 	{
 		private const int AskPosition = 4;
 		private const int BidPosition = 3;
+		private const int DateTimePosition = 2;
 		private readonly char[] _separator = new[] { '\t' };
-
-		public ParserCSV()
-		{
-		}
 
 		public Picus ParseRecord(string record)
 		{
@@ -26,8 +24,15 @@ namespace MarketGarden.Loaders
 			return new Picus()
 			{
 				Ask = ParseDouble(AskPosition, array),
-				Bid = ParseDouble(BidPosition, array)
+				Bid = ParseDouble(BidPosition, array),
+				DateTimeUtc = ParseLong(DateTimePosition, array).ToDateTime()
 			};
+		}
+
+		public long ParseDate(string record)
+		{
+			var array = record.Split(_separator);
+			return ParseLong(DateTimePosition, array);
 		}
 
 		private double ParseDouble(int position, IList<string> source)
@@ -43,6 +48,17 @@ namespace MarketGarden.Loaders
 				return result;
 			}
 			throw new InvalidOperationException(string.Format("Invalid index {0} - value {1} cannot be converted to float.", position, candidate));
+		}
+
+		private long ParseLong(int position, IList<string> source)
+		{
+			var candidate = source[position];
+			long result;
+			if (long.TryParse(candidate, out result))
+			{
+				return result;
+			}
+			throw new InvalidOperationException(string.Format("Invalid index {0} - value {1} cannot be converted to int.", position, candidate));
 		}
 
 

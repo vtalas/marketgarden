@@ -40,7 +40,7 @@ namespace marketGarden.test
 
 		public MarketHistoryInfo CreateDefault()
 		{
-			var x = new MarketDataLoader(new ParserCSV());
+			var x = new MarketDataLoaderStream(new ParserCSV());
 			return new MarketHistoryInfo(x);
 		}
 
@@ -64,8 +64,8 @@ namespace marketGarden.test
 			Assert.Greater(0, list.Count);
 			Assert.Less(list.Count, MarketHistoryInfo.MaxCount);
 
-			Assert.Greater(list.First().DateTime, from);
-			Assert.LessOrEqual(list.Last().DateTime, to);
+			Assert.Greater(list.First().DateTimeUtc, from);
+			Assert.LessOrEqual(list.Last().DateTimeUtc, to);
 		}
 	}
 }
