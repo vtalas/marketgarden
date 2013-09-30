@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MarketGarden;
 using MarketGarden.Loaders;
 using NUnit.Framework;
@@ -30,12 +27,12 @@ namespace marketGarden.test
 			var date = DateTime.Now.ToUniversalTime();
 			var timestamp = ConvertToTimestamp(date);
 
-			Console.WriteLine(date);
-			Console.WriteLine(timestamp);
-			Console.WriteLine(UnixTimeStampToDateTime(timestamp));
-			Console.WriteLine(UnixTimeStampToDateTime(1380221083));
-			Console.WriteLine(UnixTimeStampToDateTime(1380224702));
-			Console.WriteLine(date - UnixTimeStampToDateTime(timestamp));
+			Console.WriteLine(date.Day);
+//			Console.WriteLine(timestamp);
+//			Console.WriteLine(UnixTimeStampToDateTime(timestamp));
+//			Console.WriteLine(UnixTimeStampToDateTime(1380221083));
+//			Console.WriteLine(UnixTimeStampToDateTime(1380224702));
+//			Console.WriteLine(date - UnixTimeStampToDateTime(timestamp));
 		}
 
 		public MarketHistoryInfo CreateDefault()

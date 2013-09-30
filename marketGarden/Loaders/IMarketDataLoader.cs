@@ -6,6 +6,7 @@ namespace MarketGarden.Loaders
 	public interface IMarketDataLoader
 	{
 		IQueryable<Picus> GetAll();
-		IQueryable<Picus> GetAll(DateTime from, DateTime to);
+		IQueryable<Picus> GetOffset(long seconds);
+		IQueryable<Picus> GetInterval(DateTime from, DateTime to);
 	}
 }

@@ -11,6 +11,10 @@ namespace MarketGarden.Loaders
 		public IMarketDataParser Parser { get; set; }
 		public string BaseDir { get; set; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="parser"></param>
 		public MarketDataLoaderStream(IMarketDataParser parser)
 		{
 			Parser = parser;
@@ -18,43 +22,67 @@ namespace MarketGarden.Loaders
 			Console.WriteLine(BaseDir);
 		}
 
-		public List<Picus> aaa(long from, long to)
-		{
-			var z = new List<Picus>();
-
-			var filename = Path.Combine( BaseDir, "Content\\130929_LTCBTC-btce");
-			var counter = 0;
-			string line;
-
-			var file = new StreamReader(filename);
-			while ((line = file.ReadLine()) != null)
-			{
-				try
-				{
-					var date = Parser.ParseDate(line);
-					if (date < to && date > from)
-					{
-						z.Add(Parser.ParseRecord(line));
-					}
-				}
-				catch (InvalidOperationException ex)
-				{
-					Console.WriteLine(ex.Message + string.Format(" on line {0}", counter));
-				}
-				counter++;
-			}
-			file.Close();
-			return z;
-		}
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="from"></param>
+		/// <param name="to"></param>
+		/// <returns></returns>
 		public IQueryable<Picus> GetAll(DateTime from, DateTime to)
 		{
-			return aaa(from.ToTimestamp(), to.ToTimestamp()).AsQueryable();
+			return Aaaa(line =>
+			{
+				var date = Parser.ParseDate(line);
+				if (date <= to.ToTimestamp() && date >= from.ToTimestamp())
+				{
+					return Parser.ParseRecord(line);
+				}
+				return null;
+			}).AsQueryable();
 		}
 
+		/// <summary>
+		/// 
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public IQueryable<Picus> GetAll()
 		{
-			throw new NotImplementedException();
+			return Aaaa(line => Parser.ParseRecord(line)).AsQueryable();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="parseLine"></param>
+		/// <returns></returns>
+		private IEnumerable<Picus> Aaaa(Func<string, Picus> parseLine)
+		{
+			var z = new List<Picus>();
+			var counter = 0;
+			var filename = Path.Combine(BaseDir, "Content\\130929_LTCBTC-btce");
+
+			using (var file = new StreamReader(filename))
+			{
+				string line;
+				while ((line = file.ReadLine()) != null)
+				{
+					try
+					{
+						var newPicus = parseLine(line);
+						if (newPicus != null)
+						{
+							z.Add(newPicus);
+						}
+					}
+					catch (InvalidOperationException ex)
+					{
+						Console.WriteLine(ex.Message + string.Format(" on line {0}", counter));
+					}
+					counter++;
+				}
+			}
+			return z;
 		}
 	}
 }
