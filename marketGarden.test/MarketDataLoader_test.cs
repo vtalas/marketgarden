@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using MarketGarden;
 using MarketGarden.Loaders;
+using MarketGarden.PathResolver;
 using NUnit.Framework;
 
 namespace marketGarden.test
@@ -14,8 +13,14 @@ namespace marketGarden.test
 	{
 		public IMarketDataLoader CreateDefault()
 		{
-			
-			return new MarketDataLoaderStream(new ParserCSV());
+			var marketDataSettings = new MarketDataLoaderSettings
+			{
+				Market = "btce",
+				Symbol = "LTCBTC"
+			};
+
+			var pathResolver = new PathResolver(marketDataSettings);
+			return new MarketDataLoader(new ParserCSV(), pathResolver);
 		}
 
 		public void Dump(IEnumerable<Picus> list)
@@ -31,9 +36,9 @@ namespace marketGarden.test
 		{
 			var instance = CreateDefault();
 			var x = instance.GetAll();
+			Dump(x);
 			Assert.AreEqual(x.Count(), 579);
 			Console.WriteLine(x.FirstOrDefault().DateTimeUtc.ToLocalTime());
-			Dump(x);
 		}
 
 		[Test]
@@ -42,7 +47,7 @@ namespace marketGarden.test
 			var instance = CreateDefault();
 			var from = new DateTime(2013, 9, 29, 0, 0, 0, 0);
 
-			var x = instance.GetAll(from, from.AddHours(1));
+			var x = instance.GetInterval(from, from.AddHours(1));
 
 			Assert.AreEqual(x.Count(), 24);
 			Dump(x);
@@ -54,7 +59,7 @@ namespace marketGarden.test
 			var instance = CreateDefault();
 			var from = new DateTime(2013, 9, 29, 23, 0, 0, 0);
 
-			var x = instance.GetAll(from, from.AddHours(5));
+			var x = instance.GetInterval(from, from.AddHours(5));
 			Assert.AreEqual(29, x.First().DateTimeUtc.Day);
 			Assert.AreEqual(30, x.Last().DateTimeUtc.Day);
 			Dump(x);

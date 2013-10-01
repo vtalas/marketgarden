@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="PathResolver_test.cs" />
     <Compile Include="DateTimeExtension_test.cs" />
     <Compile Include="MarketDataLoader_test.cs" />
     <Compile Include="ParserCSV_test.cs" />

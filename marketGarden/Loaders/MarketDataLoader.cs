@@ -2,24 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MarketGarden.PathResolver;
 
 namespace MarketGarden.Loaders
 {
 
-	public class MarketDataLoaderStream : IMarketDataLoader
+	public class MarketDataLoader : IMarketDataLoader
 	{
 		public IMarketDataParser Parser { get; set; }
-		public string BaseDir { get; set; }
+		public IPathResolver PathResolver { get; set; }
 
 		/// <summary>
 		/// 
 		/// </summary>
 		/// <param name="parser"></param>
-		public MarketDataLoaderStream(IMarketDataParser parser)
+		/// <param name="pathResolver"></param>
+		public MarketDataLoader(IMarketDataParser parser, IPathResolver pathResolver)
 		{
 			Parser = parser;
-			BaseDir = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-			Console.WriteLine(BaseDir);
+			PathResolver = pathResolver;
 		}
 
 		/// <summary>
@@ -28,7 +29,7 @@ namespace MarketGarden.Loaders
 		/// <param name="from"></param>
 		/// <param name="to"></param>
 		/// <returns></returns>
-		public IQueryable<Picus> GetAll(DateTime from, DateTime to)
+		public IQueryable<Picus> GetInterval(DateTime @from, DateTime to)
 		{
 			return Aaaa(line =>
 			{
@@ -51,6 +52,11 @@ namespace MarketGarden.Loaders
 			return Aaaa(line => Parser.ParseRecord(line)).AsQueryable();
 		}
 
+		public IQueryable<Picus> GetOffset(long seconds)
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -60,7 +66,7 @@ namespace MarketGarden.Loaders
 		{
 			var z = new List<Picus>();
 			var counter = 0;
-			var filename = Path.Combine(BaseDir, "Content\\130929_LTCBTC-btce");
+			var filename = PathResolver.GetFilename(DateTime.Now);
 
 			using (var file = new StreamReader(filename))
 			{

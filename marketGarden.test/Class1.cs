@@ -2,6 +2,7 @@
 using System.Linq;
 using MarketGarden;
 using MarketGarden.Loaders;
+using MarketGarden.PathResolver;
 using NUnit.Framework;
 
 namespace marketGarden.test
@@ -37,7 +38,13 @@ namespace marketGarden.test
 
 		public MarketHistoryInfo CreateDefault()
 		{
-			var x = new MarketDataLoaderStream(new ParserCSV());
+			var pathResolver = new PathResolver(new MarketDataLoaderSettings
+			{
+				Market = "btce",
+				Symbol = "LTCBTC"
+			});
+
+			var x = new MarketDataLoader(new ParserCSV(), pathResolver);
 			return new MarketHistoryInfo(x);
 		}
 
