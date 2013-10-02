@@ -49,6 +49,8 @@
     <Compile Include="PathResolver\PathResolver.cs" />
     <Compile Include="Picus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Readers\IMarketReader.cs" />
+    <Compile Include="Readers\McxReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

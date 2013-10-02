@@ -1,5 +1,9 @@
 ﻿using System;
+using System.ComponentModel.Design;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Xml.Linq;
 using MarketGarden;
 using MarketGarden.Loaders;
 using MarketGarden.PathResolver;
@@ -28,7 +32,11 @@ namespace marketGarden.test
 			var date = DateTime.Now.ToUniversalTime();
 			var timestamp = ConvertToTimestamp(date);
 
-			Console.WriteLine(date.Day);
+			var from = new DateTime(2013, 9, 29, 23, 0, 0, 0);
+			var to = from.AddHours(5);
+			TimeSpan xx = new TimeSpan(1, 0, 0, 0);
+
+			Console.WriteLine(xx.TotalDays );
 //			Console.WriteLine(timestamp);
 //			Console.WriteLine(UnixTimeStampToDateTime(timestamp));
 //			Console.WriteLine(UnixTimeStampToDateTime(1380221083));
@@ -55,6 +63,25 @@ namespace marketGarden.test
 			var list = instance.GetInfo();
 			Assert.Greater(0, list.Count);
 			Assert.Less(list.Count, MarketHistoryInfo.MaxCount);
+		}
+
+		[Test]
+		public void test_requetsMCX()
+		{
+			var url = "https://mcxnow.com/orders?cur=LTC";
+			var request = WebRequest.Create(url);
+			string text;
+
+			//request.ContentType = "application/json; charset=utf-8";
+			var response = (HttpWebResponse)request.GetResponse();
+
+			using (var sr = new StreamReader(response.GetResponseStream()))
+			{
+				var doc = XDocument.Load(response.GetResponseStream());
+				var a = doc.Descendants("buy");
+				Console.WriteLine(a.ToString());
+			}
+
 		}
 
 		[Test]
