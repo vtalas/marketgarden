@@ -23,8 +23,8 @@ namespace MarketGarden.Loaders
 
 			return new Picus()
 			{
-				Ask = ParseDouble(AskPosition, array),
-				Bid = ParseDouble(BidPosition, array),
+				Ask = ParseDouble(array[AskPosition]),
+				Bid = ParseDouble(array[BidPosition]),
 				DateTimeUtc = ParseLong(DateTimePosition, array).ToDateTime()
 			};
 		}
@@ -35,9 +35,8 @@ namespace MarketGarden.Loaders
 			return ParseLong(DateTimePosition, array);
 		}
 
-		private double ParseDouble(int position, IList<string> source)
+		public static double ParseDouble(string candidate)
 		{
-			var candidate = source[position];
 			double result;
 			if (double.TryParse(candidate, out result))
 			{
@@ -47,7 +46,7 @@ namespace MarketGarden.Loaders
 			{
 				return result;
 			}
-			throw new InvalidOperationException(string.Format("Invalid index {0} - value {1} cannot be converted to float.", position, candidate));
+			throw new InvalidOperationException(string.Format("Value {0} cannot be converted to float.", candidate));
 		}
 
 		private long ParseLong(int position, IList<string> source)

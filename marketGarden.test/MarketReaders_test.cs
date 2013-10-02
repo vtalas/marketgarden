@@ -13,8 +13,7 @@ namespace marketGarden.test
 			var x = new McxReader();
 			var response = x.ReadData("LTC");
 
-			Console.WriteLine(response);
-
+			Console.WriteLine(response.ToString());
 		}
 	}
 }

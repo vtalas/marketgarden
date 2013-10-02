@@ -29,8 +29,8 @@ namespace marketGarden.test
 			{
 				Console.WriteLine(item);
 			}
-	
 		}
+	
 		[Test]
 		public void GetAllValues_test()
 		{
@@ -46,9 +46,7 @@ namespace marketGarden.test
 		{
 			var instance = CreateDefault();
 			var from = new DateTime(2013, 9, 29, 0, 0, 0, 0);
-
 			var x = instance.GetInterval(from, from.AddHours(1));
-
 			Assert.AreEqual(x.Count(), 24);
 			Dump(x);
 		}

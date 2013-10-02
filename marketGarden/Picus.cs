@@ -1,4 +1,5 @@
 using System;
+using MarketGarden.Loaders;
 
 namespace MarketGarden
 {
@@ -9,7 +10,7 @@ namespace MarketGarden
 		public double Bid {get; set; }
 		public override string ToString()
 		{
-			return string.Format("{0}\t{1}\t{2}", DateTimeUtc, Bid, Ask);
+			return string.Format("{0} \t {1} \t {2}  ({3})", DateTimeUtc.ToTimestamp(), Bid, Ask, DateTimeUtc);
 		}
 	}
 
