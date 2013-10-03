@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using MarketGarden;
 using MarketGarden.Loaders;
 using MarketGarden.PathResolver;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace marketGarden.test
@@ -79,5 +80,19 @@ namespace marketGarden.test
 			Assert.Greater(list.First().DateTimeUtc, from);
 			Assert.LessOrEqual(list.Last().DateTimeUtc, to);
 		}
+
+		[Test]
+		public void ConvertSimpleInterval_toJson()
+		{
+			var from = new DateTime(2013, 10, 1, 0, 0, 0, 0); ;
+			var to = from.AddHours(5);
+
+			var instance = CreateDefault();
+			var list = instance.GetInfo(from, to);
+			var json = JsonConvert.SerializeObject(list);
+
+			Console.WriteLine(json);
+		}
+
 	}
 }
