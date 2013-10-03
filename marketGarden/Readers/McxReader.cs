@@ -24,8 +24,6 @@ namespace MarketGarden.Readers
 			var buyVolume = doc.Descendants("vol").Descendants("v").Descendants("a1").Last();
 			var sellVolume = doc.Descendants("vol").Descendants("v").Descendants("a2").Last();
 
-			Console.WriteLine(sellVolume);
-			Console.WriteLine(buyVolume);
 			var pic = new Picus()
 			{
 				Ask = ParserCSV.ParseDouble(askString.Value),

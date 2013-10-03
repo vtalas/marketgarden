@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MarketGarden.Loaders;
 
 namespace MarketGarden
@@ -17,8 +18,7 @@ namespace MarketGarden
 
 		public IList<Picus> GetInfo(DateTime from, DateTime to)
 		{
-			var x = new List<Picus>();
-			return x;
+			return Loader.GetInterval(from, to).ToList();
 		}
 
 		public IList<Picus> GetInfo(DateTime from)

@@ -66,33 +66,14 @@ namespace marketGarden.test
 		}
 
 		[Test]
-		public void test_requetsMCX()
-		{
-			var url = "https://mcxnow.com/orders?cur=LTC";
-			var request = WebRequest.Create(url);
-			string text;
-
-			//request.ContentType = "application/json; charset=utf-8";
-			var response = (HttpWebResponse)request.GetResponse();
-
-			using (var sr = new StreamReader(response.GetResponseStream()))
-			{
-				var doc = XDocument.Load(response.GetResponseStream());
-				var a = doc.Descendants("buy");
-				Console.WriteLine(a.ToString());
-			}
-
-		}
-
-		[Test]
 		public void TimeIntervalShouldBeInBoundaries()
 		{
-			var from = DateTime.Now.AddDays(-2);
-			var to = DateTime.Now.AddDays(-1);
+			var from = new DateTime(2013, 10, 1, 0, 0, 0, 0); ;
+			var to = from.AddHours(5);
 
 			var instance = CreateDefault();
 			var list = instance.GetInfo(from, to);
-			Assert.Greater(0, list.Count);
+			Assert.Greater(list.Count, 0);
 			Assert.Less(list.Count, MarketHistoryInfo.MaxCount);
 
 			Assert.Greater(list.First().DateTimeUtc, from);

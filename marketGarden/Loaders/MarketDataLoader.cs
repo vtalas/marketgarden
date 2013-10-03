@@ -31,7 +31,9 @@ namespace MarketGarden.Loaders
 		/// <returns></returns>
 		public IQueryable<Picus> GetInterval(DateTime @from, DateTime to)
 		{
-			return Aaaa(line =>
+			var filename = PathResolver.GetFilename(to);
+
+			return LoadData(line =>
 			{
 				var date = Parser.ParseDate(line);
 				if (date <= to.ToTimestamp() && date >= from.ToTimestamp())
@@ -39,17 +41,12 @@ namespace MarketGarden.Loaders
 					return Parser.ParseRecord(line);
 				}
 				return null;
-			}).AsQueryable();
+			}, filename).AsQueryable();
 		}
 
-		/// <summary>
-		/// 
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IQueryable<Picus> GetAll()
+		public IQueryable<Picus> GetInterval(DateTime @from)
 		{
-			return Aaaa(line => Parser.ParseRecord(line)).AsQueryable();
+			throw new NotImplementedException();
 		}
 
 		public IQueryable<Picus> GetOffset(long seconds)
@@ -60,13 +57,13 @@ namespace MarketGarden.Loaders
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="parseLine"></param>
+		/// <param name="parseLineFunction"></param>
+		/// <param name="filename"></param>
 		/// <returns></returns>
-		private IEnumerable<Picus> Aaaa(Func<string, Picus> parseLine)
+		private IEnumerable<Picus> LoadData(Func<string, Picus> parseLineFunction, string filename)
 		{
 			var z = new List<Picus>();
 			var counter = 0;
-			var filename = PathResolver.GetFilename(DateTime.Now);
 
 			using (var file = new StreamReader(filename))
 			{
@@ -75,7 +72,7 @@ namespace MarketGarden.Loaders
 				{
 					try
 					{
-						var newPicus = parseLine(line);
+						var newPicus = parseLineFunction(line);
 						if (newPicus != null)
 						{
 							z.Add(newPicus);

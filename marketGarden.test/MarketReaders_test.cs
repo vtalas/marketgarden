@@ -8,6 +8,7 @@ namespace marketGarden.test
 	public class MarketReaders_test
 	{
 		[Test]
+		[Ignore]
 		public void mcx()
 		{
 			var x = new McxReader();

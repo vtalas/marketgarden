@@ -34,11 +34,11 @@ namespace marketGarden.test
 		[Test]
 		public void GetAllValues_test()
 		{
-			var instance = CreateDefault();
-			var x = instance.GetAll();
-			Dump(x);
-			Assert.AreEqual(x.Count(), 579);
-			Console.WriteLine(x.FirstOrDefault().DateTimeUtc.ToLocalTime());
+//			var instance = CreateDefault();
+//			var x = instance.GetAll();
+//			Dump(x);
+//			Assert.AreEqual(x.Count(), 579);
+//			Console.WriteLine(x.FirstOrDefault().DateTimeUtc.ToLocalTime());
 		}
 
 		[Test]
