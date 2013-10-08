@@ -17,7 +17,7 @@ namespace marketGardenApi.Controllers
 			var pathResolver = new PathResolverWeb(new MarketDataLoaderSettings
 			{
 				Market = "btce",
-				Symbol = "LTCBTC"
+				SymbolBase = "LTCBTC"
 			}, HttpContext.Current);
 
 			var x = new MarketDataLoader(new ParserCSV(), pathResolver);

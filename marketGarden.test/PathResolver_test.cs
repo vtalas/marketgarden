@@ -15,7 +15,7 @@ namespace marketGarden.test
 			var marketSettins = new MarketDataLoaderSettings()
 			{
 				Market = "btce",
-				Symbol = "LTCBTC"
+				SymbolBase = "LTCBTC"
 			};
 			var x = new PathResolver(marketSettins);
 
@@ -30,7 +30,7 @@ namespace marketGarden.test
 			var marketSettins = new MarketDataLoaderSettings()
 			{
 				Market = "btce",
-				Symbol = "LTCBTC"
+				SymbolBase = "LTCBTC"
 			};
 			var x = new PathResolver(marketSettins);
 			var from = new DateTime(2013, 10, 1, 0, 0, 0, 0); ;

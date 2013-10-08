@@ -16,7 +16,7 @@ namespace marketGarden.test
 			var marketDataSettings = new MarketDataLoaderSettings
 			{
 				Market = "btce",
-				Symbol = "LTCBTC"
+				SymbolBase = "LTCBTC"
 			};
 
 			var pathResolver = new PathResolver(marketDataSettings);

@@ -19,9 +19,11 @@ namespace MarketGarden
 
 		public double Ask {get; set; }
 		public double Bid {get; set; }
+		public double Volume { get; set; }
+
 		public override string ToString()
 		{
-			return string.Format("{0} \t {1} \t {2}  ({3})", DateTimeUtc.ToTimestamp(), Bid, Ask, DateTimeUtc);
+			return string.Format("{0} \t {1} \t {2} \t {3} ({4})", DateTimeUtc.ToTimestamp(), Bid, Ask, Volume, DateTimeUtc);
 		}
 	}
 

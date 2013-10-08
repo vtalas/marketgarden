@@ -9,11 +9,8 @@ namespace marketGardenApi
 	{
 		public static void Register(HttpConfiguration config)
 		{
-			config.Routes.MapHttpRoute(
-				name: "DefaultApi",
-				routeTemplate: "api/{controller}/{id}",
-				defaults: new { id = RouteParameter.Optional }
-			);
+			//config.Routes.MapHttpRoute("marketApi", "api/cron/{action}/{xxx}/{alt}", new { controller ="Cron",  alt = RouteParameter.Optional, xxx = RouteParameter.Optional});
+			config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{action}/{base}/{alt}", new { @base = RouteParameter.Optional, alt = "" });
 		}
 	}
 }
