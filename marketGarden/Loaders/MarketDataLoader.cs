@@ -64,6 +64,11 @@ namespace MarketGarden.Loaders
 		{
 			var z = new List<Picus>();
 			var counter = 0;
+			
+			if (!File.Exists(filename))
+			{
+				return z;
+			}
 
 			using (var file = new StreamReader(filename))
 			{

@@ -81,6 +81,20 @@ namespace marketGarden.test
 			Assert.LessOrEqual(list.Last().DateTimeUtc, to);
 		}
 
+
+		[Test]
+		public void Error_NoSourceFound()
+		{
+			var from = new DateTime(2099, 10, 1, 0, 0, 0, 0); ;
+			var to = from.AddHours(5);
+
+			var instance = CreateDefault();
+			var list = instance.GetInfo(from, to);
+			Assert.AreEqual(0, list.Count);
+		}
+
+
+
 		[Test]
 		public void ConvertSimpleInterval_toJson()
 		{
