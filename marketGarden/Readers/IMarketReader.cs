@@ -2,6 +2,6 @@
 {
 	public interface IMarketReader
 	{
-		Picus ReadData(string symbol);
+		Picus ReadData(string @base, string alt);
 	}
 }

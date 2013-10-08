@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="MarketHistoryInfo_test.cs" />
     <Compile Include="MarketReaders_test.cs" />
     <Compile Include="PathResolver_test.cs" />
     <Compile Include="DateTimeExtension_test.cs" />

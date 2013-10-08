@@ -10,9 +10,9 @@ namespace MarketGarden.Readers
 	{
 		private const string UrlPattern = "https://mcxnow.com/orders?cur={0}";
 
-		public Picus ReadData(string symbol)
+		public Picus ReadData(string @base, string alt)
 		{
-			var request = WebRequest.Create(string.Format(UrlPattern, symbol));
+			var request = WebRequest.Create(string.Format(UrlPattern, @base));
 
 			//request.ContentType = "application/json; charset=utf-8";
 			var response = (HttpWebResponse)request.GetResponse();
@@ -21,13 +21,13 @@ namespace MarketGarden.Readers
 
 			var askString = doc.Descendants("sell").Descendants("o").Descendants("p").First();
 			var bidString = doc.Descendants("buy").Descendants("o").Descendants("p").First();
-			var buyVolume = doc.Descendants("vol").Descendants("v").Descendants("a1").Last();
-			var sellVolume = doc.Descendants("vol").Descendants("v").Descendants("a2").Last();
+			var volume = doc.Descendants("curvol").First();
 
 			var pic = new Picus()
 			{
 				Ask = ParserCSV.ParseDouble(askString.Value),
 				Bid = ParserCSV.ParseDouble(bidString.Value),
+				Volume = ParserCSV.ParseDouble(volume.Value),// + ParserCSV.ParseDouble(sellVolume.Value),
 				DateTimeUtc = DateTime.UtcNow
 			};
 			return pic;

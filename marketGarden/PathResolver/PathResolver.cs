@@ -17,7 +17,7 @@ namespace MarketGarden.PathResolver
 
 		public string GetFilename(DateTime datetime)
 		{
-			var filename = string.Format("{0}_{1}-{2}", datetime.ToString("yyMMdd"), Settings.Symbol, Settings.Market);
+			var filename = string.Format("{0}_{1}-{2}", datetime.ToString("yyMMdd"), Settings.SymbolBase, Settings.Market);
 			return Path.Combine(BaseDir, "Content", filename);
 		}
 	}

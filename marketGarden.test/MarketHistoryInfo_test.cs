@@ -1,9 +1,5 @@
 ﻿using System;
-using System.ComponentModel.Design;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Xml.Linq;
 using MarketGarden;
 using MarketGarden.Loaders;
 using MarketGarden.PathResolver;
@@ -50,7 +46,7 @@ namespace marketGarden.test
 			var pathResolver = new PathResolver(new MarketDataLoaderSettings
 			{
 				Market = "btce",
-				Symbol = "LTCBTC"
+				SymbolBase = "LTCBTC"
 			});
 
 			var x = new MarketDataLoader(new ParserCSV(), pathResolver);
