@@ -12,7 +12,7 @@ namespace MarketGarden.Readers
 
 		public Picus ReadData(string @base, string alt)
 		{
-			var request = WebRequest.Create(string.Format(UrlPattern, @base, alt));
+			var request = WebRequest.Create(string.Format(UrlPattern, @base.ToLower(), alt.ToLower()));
 			var response = (HttpWebResponse)request.GetResponse();
 
 			var rawJson = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -21,7 +21,6 @@ namespace MarketGarden.Readers
 			//Console.WriteLine(json);
 			var pic = new Picus
 			{
-
 				Ask = ParserCSV.ParseDouble(json["min_ask"].ToString()),
 				Bid = ParserCSV.ParseDouble(json["max_bid"].ToString()),
 				Volume = ParserCSV.ParseDouble(json["vol_ltc"].ToString()),
