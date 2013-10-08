@@ -1,23 +1,24 @@
 using System;
 using System.IO;
-using MarketGarden.Loaders;
 
 namespace MarketGarden.PathResolver
 {
 	public class PathResolver : IPathResolver
 	{
 		private string BaseDir { get; set; }
-		public MarketDataLoaderSettings Settings { get; set; }
+		public MarketDataSettings Settings { get; set; }
+		public string MarketSymbol { get; set; }
 
-		public PathResolver(MarketDataLoaderSettings settings)
+		public PathResolver(MarketDataSettings settings, string marketSymbol)
 		{
 			Settings = settings;
+			MarketSymbol = marketSymbol;
 			BaseDir = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 		}
 
 		public string GetFilename(DateTime datetime)
 		{
-			var filename = string.Format("{0}_{1}-{2}", datetime.ToString("yyMMdd"), Settings.SymbolBase, Settings.Market);
+			var filename = string.Format("{0}_{1}{2}-{3}", datetime.ToString("yyMMdd"), Settings.SymbolBase, Settings.SymbolAlt, MarketSymbol);
 			return Path.Combine(BaseDir, "Content", filename);
 		}
 	}

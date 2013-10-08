@@ -28,6 +28,5 @@ namespace MarketGarden.Readers
 			};
 			return pic;
 		}
-
 	}
 }

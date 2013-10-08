@@ -8,7 +8,7 @@ namespace MarketGarden.Readers
 {
 	public class CryptoTradeReader : IMarketReader
 	{
-		private const string UrlPattern = "https://crypto-trade.com/api/1/ticker/{0}";
+		private const string UrlPattern = "https://crypto-trade.com/api/1/ticker/{0}_{1}";
 
 		public Picus ReadData(string @base, string alt)
 		{
@@ -29,6 +29,5 @@ namespace MarketGarden.Readers
 			};
 			return pic;
 		}
-
 	}
 }

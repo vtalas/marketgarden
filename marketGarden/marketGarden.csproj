@@ -47,8 +47,8 @@
     <Compile Include="Loaders\DateTimeExtension.cs" />
     <Compile Include="Loaders\IMarketDataLoader.cs" />
     <Compile Include="Loaders\IMarketDataParser.cs" />
-    <Compile Include="Loaders\MarketDataLoaderSettings.cs" />
     <Compile Include="Loaders\MarketDataLoader.cs" />
+    <Compile Include="MarketDataSettings.cs" />
     <Compile Include="MarketHistoryInfo.cs" />
     <Compile Include="PathResolver\IPathResolver.cs" />
     <Compile Include="PathResolver\PathResolver.cs" />
@@ -60,6 +60,9 @@
     <Compile Include="Readers\BtceReader.cs" />
     <Compile Include="Readers\IMarketReader.cs" />
     <Compile Include="Readers\McxReader.cs" />
+    <Compile Include="Recorder\MarketInfoRecorder.cs" />
+    <Compile Include="RecordProcessor\IMarketRecordProcessor.cs" />
+    <Compile Include="RecordProcessor\TsvFileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

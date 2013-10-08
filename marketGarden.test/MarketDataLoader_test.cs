@@ -9,17 +9,11 @@ using NUnit.Framework;
 namespace marketGarden.test
 {
 	[TestFixture]
-	public class MarketDataLoader_test
+	public class MarketDataLoader_test : Chuj
 	{
 		public IMarketDataLoader CreateDefault()
 		{
-			var marketDataSettings = new MarketDataLoaderSettings
-			{
-				Market = "btce",
-				SymbolBase = "LTCBTC"
-			};
-
-			var pathResolver = new PathResolver(marketDataSettings);
+			var pathResolver = GetPathResolver();
 			return new MarketDataLoader(new ParserCSV(), pathResolver);
 		}
 

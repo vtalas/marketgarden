@@ -23,7 +23,7 @@ namespace marketGarden.test
 		public void btce_test()
 		{
 			var x = new BtceReader();
-			var data = x.ReadData("ltc_btc", "");
+			var data = x.ReadData("LTC", "BTC");
 
 			Console.WriteLine(data.ToString());
 			Assert.Less(data.Bid, data.Ask);
@@ -45,7 +45,7 @@ namespace marketGarden.test
 		public void CryptoTrade_test()
 		{
 			var x = new CryptoTradeReader();
-			var data = x.ReadData("ltc_btc", "");
+			var data = x.ReadData("ltc", "btc");
 
 			Console.WriteLine(data.ToString());
 			Assert.Less(data.Bid, data.Ask);

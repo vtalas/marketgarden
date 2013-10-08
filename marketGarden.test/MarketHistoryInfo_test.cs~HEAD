@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using MarketGarden;
 using MarketGarden.Loaders;
@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace marketGarden.test
 {
 	[TestFixture]
-	public class MarketHistoryInfo_test : Chuj
+	public class MarketHistoryInfo_test
 	{
 		private long ConvertToTimestamp(DateTime value)
 		{
@@ -43,7 +43,13 @@ namespace marketGarden.test
 
 		public MarketHistoryInfo CreateDefault()
 		{
-			var x = new MarketDataLoader(new ParserCSV(), GetPathResolver());
+			var pathResolver = new PathResolver(new MarketDataLoaderSettings
+			{
+				Market = "btce",
+				SymbolBase = "LTCBTC"
+			});
+
+			var x = new MarketDataLoader(new ParserCSV(), pathResolver);
 			return new MarketHistoryInfo(x);
 		}
 

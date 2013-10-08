@@ -12,26 +12,7 @@ namespace marketGardenApi.Controllers
 {
 	public class ValuesController : ApiController
 	{
-		private MarketHistoryInfo x()
-		{
-			var pathResolver = new PathResolverWeb(new MarketDataLoaderSettings
-			{
-				Market = "btce",
-				SymbolBase = "LTCBTC"
-			}, HttpContext.Current);
-
-			var x = new MarketDataLoader(new ParserCSV(), pathResolver);
-			return new MarketHistoryInfo(x);
-		}
 		
-		// GET api/values
-		public IEnumerable<Picus> Get()
-		{
-			var from = new DateTime(2013, 10, 3, 0, 0, 0, 0); ;
-			var to = from.AddHours(5);
-			return x().GetInfo(from, to).ToList();
-		}
-
 		// GET api/values/5
 		public string Get(int id)
 		{

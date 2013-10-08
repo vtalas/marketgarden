@@ -8,11 +8,11 @@ namespace MarketGarden.Readers
 {
 	public class BtceReader : IMarketReader
 	{
-		private const string UrlPattern = "https://btc-e.com/api/2/{0}/ticker";
+		private const string UrlPattern = "https://btc-e.com/api/2/{0}_{1}/ticker";
 
 		public Picus ReadData(string @base, string alt)
 		{
-			var request = WebRequest.Create(string.Format(UrlPattern, @base));
+			var request = WebRequest.Create(string.Format(UrlPattern, @base.ToLower(), alt.ToLower()));
 			var response = (HttpWebResponse)request.GetResponse();
 
 			var rawJson = new StreamReader(response.GetResponseStream()).ReadToEnd();

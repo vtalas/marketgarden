@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chuj.cs" />
     <Compile Include="MarketHistoryInfo_test.cs" />
     <Compile Include="MarketReaders_test.cs" />
     <Compile Include="PathResolver_test.cs" />
