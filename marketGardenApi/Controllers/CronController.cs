@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using MarketGarden;
@@ -47,10 +50,21 @@ namespace marketGardenApi.Controllers
 			var baseSymbol = @base.ToUpper();
 			var altSymbol = alt.ToUpper();
 
-			Factory(new BtceReader(), "btce", baseSymbol, altSymbol).Process();
-			Factory(new CryptoTradeReader(), "crypto", baseSymbol, altSymbol).Process();
-			Factory(new VirCurexReader(), "vircurex", baseSymbol, altSymbol).Process();
-			Factory(new McxReader(), "mcx", baseSymbol, altSymbol).Process();
+			var x = new List<Picus>
+			{
+				Factory(new BtceReader(), "btce", baseSymbol, altSymbol).Process(),
+				Factory(new CryptoTradeReader(), "crypto", baseSymbol, altSymbol).Process(),
+				Factory(new VirCurexReader(), "vircurex", baseSymbol, altSymbol).Process(),
+				Factory(new McxReader(), "mcx", baseSymbol, altSymbol).Process()
+			};
+
+			var minAsk = x.OrderBy(a => a.Ask).First().Ask;
+			var maxBid = x.OrderByDescending(u => u.Bid).First().Bid;
+
+			if (minAsk < maxBid)
+			{
+				//xxxx
+			}
 
 			return 1;
 		}
