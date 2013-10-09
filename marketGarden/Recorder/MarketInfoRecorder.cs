@@ -1,3 +1,5 @@
+using System.Runtime.Remoting.Messaging;
+
 namespace MarketGarden.Recorder
 {
 	public class MarketInfoRecorder
@@ -9,11 +11,20 @@ namespace MarketGarden.Recorder
 			Settings = settings;
 		}
 
-		public Picus Process()
+		public PicusWithName Process(string marketName)
 		{
 			var data = Settings.MarketReader.ReadData(Settings.SymbolBase, Settings.SymbolAlt);
 			Settings.MarketRecordProcessor.ProcessMarketData(data);
-			return data;
+
+			return new PicusWithName
+			{
+				Ask = data.Ask,
+				Bid = data.Bid,
+				MarketName = marketName,
+				Volume = data.Volume,
+				DateTimeUtc = data.DateTimeUtc
+			};
 		}
+
 	}
 }

@@ -1,4 +1,6 @@
-﻿namespace MarketGarden.Readers
+﻿using marketGarden.Models;
+
+namespace MarketGarden.Readers
 {
 	public interface IMarketReader
 	{
