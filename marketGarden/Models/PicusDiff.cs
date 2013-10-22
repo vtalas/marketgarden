@@ -25,5 +25,13 @@ namespace marketGarden.Models
 				Ask.ToString(CultureInfo.InvariantCulture), 
 				Bid.ToString(CultureInfo.InvariantCulture));
 		}
+
+		public string ToTsvLineReadable()
+		{
+			return string.Format("{0}\t{1} (UTC) \t{2}_{3} \t{4} \t{5} \t{6}\n", DateTimeUtc.ToLocalTime(), DateTimeUtc, BuyMarket, SellMarket, 
+				(Bid - Ask).ToString(CultureInfo.InvariantCulture), 
+				Ask.ToString(CultureInfo.InvariantCulture), 
+				Bid.ToString(CultureInfo.InvariantCulture));
+		}
 	}
 }

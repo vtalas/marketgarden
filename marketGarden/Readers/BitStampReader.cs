@@ -7,26 +7,25 @@ using Newtonsoft.Json.Linq;
 
 namespace MarketGarden.Readers
 {
-	public class BtceReader : IMarketReader
+	public class BitStampReader : IMarketReader
 	{
-		private const string UrlPattern = "https://btc-e.com/api/2/{0}_{1}/ticker";
+		private const string UrlPattern = "https://www.bitstamp.net/api/ticker/";
 
 		public Picus ReadData(string @base, string alt)
 		{
-			var request = WebRequest.Create(string.Format(UrlPattern, @base.ToLower(), alt.ToLower()));
+			var request = WebRequest.Create(UrlPattern);
 			var response = (HttpWebResponse)request.GetResponse();
 
 			var rawJson = new StreamReader(response.GetResponseStream()).ReadToEnd();
-			var json = JObject.Parse(rawJson);  //Turns your raw string into a key value lookup
-			var ticker = json["ticker"];
+			var ticker = JObject.Parse(rawJson);  //Turns your raw string into a key value lookup
 
 			//check data is not too old ? 
 			//Console.WriteLine(ticker.ToString());
 			var pic = new Picus
 			{
-				Ask = ParserCSV.ParseDouble(ticker["buy"].ToString()),
-				Bid = ParserCSV.ParseDouble(ticker["sell"].ToString()),
-				Volume = ParserCSV.ParseDouble(ticker["vol_cur"].ToString()),
+				Ask = ParserCSV.ParseDouble(ticker["ask"].ToString()),
+				Bid = ParserCSV.ParseDouble(ticker["bid"].ToString()),
+				Volume = ParserCSV.ParseDouble(ticker["volume"].ToString()),
 				DateTimeUtc = DateTime.UtcNow
 			};
 			return pic;

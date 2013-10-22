@@ -24,7 +24,7 @@ namespace MarketGarden.Readers
 			{
 				Ask = ParserCSV.ParseDouble(json["min_ask"].ToString()),
 				Bid = ParserCSV.ParseDouble(json["max_bid"].ToString()),
-				Volume = ParserCSV.ParseDouble(json["vol_ltc"].ToString()),
+				Volume = ParserCSV.ParseDouble(json["vol_" + @base.ToLower()].ToString()),
 				DateTimeUtc = DateTime.UtcNow
 			};
 			return pic;

@@ -59,6 +59,8 @@
     <Compile Include="Models\PicusDiff.cs" />
     <Compile Include="PicusWithName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Readers\BitStampReader.cs" />
+    <Compile Include="Readers\MtGoxReader.cs" />
     <Compile Include="Readers\CryptoTradeReader.cs" />
     <Compile Include="Readers\VirCurexReader.cs" />
     <Compile Include="Readers\BtceReader.cs" />
