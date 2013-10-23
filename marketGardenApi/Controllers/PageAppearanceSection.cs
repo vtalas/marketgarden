@@ -25,8 +25,21 @@ namespace marketGardenApi.Controllers
 	}
 
 
-	public class MarketCollection : ConfigurationElementCollection
+	public class MarketCollection : ConfigurationElementCollection, IEnumerable<MarketElement>
 	{
+		public MarketElement this[int index]
+		{
+			get { return (MarketElement)BaseGet(index); }
+			set
+			{
+				if (BaseGet(index) != null)
+				{
+					BaseRemoveAt(index);
+				}
+				BaseAdd(index, value);
+			}
+		}
+
 		public void Add(MarketElement serviceConfig)
 		{
 			BaseAdd(serviceConfig);
@@ -62,6 +75,14 @@ namespace marketGardenApi.Controllers
 			BaseRemove(name);
 		}
 
+		public new IEnumerator<MarketElement> GetEnumerator()
+		{
+			var count = Count;
+			for (var i = 0; i < count; i++)
+			{
+				yield return BaseGet(i) as MarketElement;
+			}
+		}
 	}
 
 	public class MarketElement: ConfigurationElement
@@ -102,8 +123,21 @@ namespace marketGardenApi.Controllers
 
 	}
 
-	public class ReaderCollection : ConfigurationElementCollection
+	public class ReaderCollection : ConfigurationElementCollection, IEnumerable<ReaderElement>
 	{
+		public ReaderElement this[int index]
+		{
+			get { return (ReaderElement)BaseGet(index); }
+			set
+			{
+				if (BaseGet(index) != null)
+				{
+					BaseRemoveAt(index);
+				}
+				BaseAdd(index, value);
+			}
+		}
+		
 		public void Add(ReaderElement serviceConfig)
 		{
 			BaseAdd(serviceConfig);
@@ -113,6 +147,7 @@ namespace marketGardenApi.Controllers
 		{
 			BaseClear();
 		}
+
 
 		protected override ConfigurationElement CreateNewElement()
 		{
@@ -137,6 +172,15 @@ namespace marketGardenApi.Controllers
 		public void Remove(string name)
 		{
 			BaseRemove(name);
+		}
+
+		public new IEnumerator<ReaderElement> GetEnumerator()
+		{
+			var count = Count;
+			for (var i = 0; i < count; i++)
+			{
+				yield return BaseGet(i) as ReaderElement;
+			}
 		}
 	}
 	public class ReaderElement : ConfigurationElement

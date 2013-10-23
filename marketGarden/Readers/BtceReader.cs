@@ -31,5 +31,13 @@ namespace MarketGarden.Readers
 			};
 			return pic;
 		}
+
+		public string ShortName
+		{
+			get
+			{
+				return "btce";
+			} 
+		}
 	}
 }

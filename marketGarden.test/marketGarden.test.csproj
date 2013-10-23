@@ -41,6 +41,7 @@
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Chuj.cs" />
     <Compile Include="ChoChoo_test.cs" />
+    <Compile Include="Config_test.cs" />
     <Compile Include="MarketHistoryInfo_test.cs" />
     <Compile Include="MarketReaders_test.cs" />
     <Compile Include="PathResolver_test.cs" />
@@ -60,9 +62,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\marketGardenApi\marketGardenApi.csproj">
+      <Project>{2A9AD05B-DF0F-4D64-8A7C-470C742ABB0B}</Project>
+      <Name>marketGardenApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\marketGarden\marketGarden.csproj">
       <Project>{943eecc6-568d-4025-b8e8-3d4f5c821736}</Project>
       <Name>marketGarden</Name>
