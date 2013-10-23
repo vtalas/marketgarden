@@ -124,6 +124,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CronController.cs" />
     <Compile Include="Controllers\homeController.cs" />
+    <Compile Include="Controllers\PageAppearanceSection.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Dynamic;
 using System.Globalization;
 using System.Net.Mail;
 using System.Web.Mvc;
@@ -35,11 +37,13 @@ namespace marketGardenApi.Controllers
 
 		}
 
-		
-
 	    public ActionResult Index()
         {
+			var x = (MarketGetterConfig)ConfigurationManager.GetSection("marketGetter");
+			
+			Activator.CreateInstance()
 
+			return new EmptyResult();
 			var lite = new List<PicusWithName>
 			{
 				MarketInfoRecorderFactory(new BtceReader(), "btce", Litecoin, Bitcoin),
@@ -66,15 +70,16 @@ namespace marketGardenApi.Controllers
 				//nema deposit
 				//MarketInfoRecorderFactory(new VirCurexReader(), "vircurex", Bitcoin, Usd),
 			};
+			
 
-			ProcessMarket(lite, Litecoin, Bitcoin, 1);
-			ProcessMarket(btcEur, Bitcoin, Eur, 5);
+			ProcessMarket(lite, Litecoin, Bitcoin, 2.5);
+			ProcessMarket(btcEur, Bitcoin, Eur, 8);
 			ProcessMarket(btcUsd, Bitcoin, Usd, 15);
 
 			return View();
         }
 
-		private void ProcessMarket(List<PicusWithName> list, string @base, string alt, int thesholdPercent = 10)
+		private void ProcessMarket(List<PicusWithName> list, string @base, string alt, double thesholdPercent = 10)
 	    {
 			var pathResolver = new PathResolverWeb(@base, alt, "diff", System.Web.HttpContext.Current);
 			var cho = new Chochoo(list, new TsvFileWriter(pathResolver));
@@ -112,5 +117,8 @@ namespace marketGardenApi.Controllers
 		}
 
 
+
     }
+
+	
 }
