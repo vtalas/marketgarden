@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using MarketGarden;
 using marketGarden.Models;
 using MarketGarden.RecordProcessor;
@@ -22,7 +23,8 @@ namespace marketGarden
 			var minAsk = Picuses.OrderBy(a => a.Ask).First();
 			var maxBid = Picuses.OrderByDescending(u => u.Bid).First();
 
-			if (minAsk.Ask < maxBid.Bid || true)
+
+			if (minAsk.Ask < maxBid.Bid)
 			{
 				var diff  = new PicusDiff
 				{
