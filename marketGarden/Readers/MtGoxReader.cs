@@ -11,7 +11,7 @@ namespace MarketGarden.Readers
 	{
 		private const string UrlPattern = "http://data.mtgox.com/api/2/{0}{1}/money/ticker_fast";
 
-		public Picus ReadData(string @base, string alt)
+		public Market ReadData(string @base, string alt)
 		{
 			var request = WebRequest.Create(string.Format(UrlPattern, @base.ToUpper(), alt.ToUpper()));
 			var response = (HttpWebResponse)request.GetResponse();
@@ -22,7 +22,7 @@ namespace MarketGarden.Readers
 
 			//check data is not too old ? 
 			//Console.WriteLine(ticker.ToString());
-			var pic = new Picus
+			var pic = new Market
 			{
 				Ask = ParserCSV.ParseDouble(ticker["buy"]["value"].ToString()),
 				Bid = ParserCSV.ParseDouble(ticker["sell"]["value"].ToString()),
@@ -39,6 +39,12 @@ namespace MarketGarden.Readers
 			}
 		}
 
+		string IMarketReader.TradeUrlGui(string @base, string alt)
+		{
+			return "http://mtgox.com";
+		}
+
+		public string TradeUrlGui { get; set; }
 	}
 
 }

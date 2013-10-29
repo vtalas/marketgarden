@@ -1,7 +1,7 @@
 using System.IO;
-using marketGarden;
 using marketGarden.Models;
 using MarketGarden.PathResolver;
+using MarketGarden.Readers;
 
 namespace MarketGarden.RecordProcessor
 {
@@ -14,9 +14,17 @@ namespace MarketGarden.RecordProcessor
 			PathResolver = pathResolver;
 		}
 
-		public void ProcessMarketData(IPicusData data)
+		public void ProcessMarketData(IMarketData data)
 		{
 			File.AppendAllText(PathResolver.GetFilename(data.DateTimeUtc), data.ToTsvLine());
+		}
+
+		public Market ProcessMarketData(string symbolBase, string symbolAlt, IMarketReader marketReader)
+		{
+
+			var data = marketReader.ReadData(symbolBase, symbolAlt);
+			File.AppendAllText(PathResolver.GetFilename(data.DateTimeUtc), data.ToTsvLine());
+			return data;
 		}
 	}
 }

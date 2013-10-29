@@ -11,7 +11,7 @@ namespace MarketGarden.Readers
 	{
 		private const string UrlPattern = "https://btc-e.com/api/2/{0}_{1}/ticker";
 
-		public Picus ReadData(string @base, string alt)
+		public Market ReadData(string @base, string alt)
 		{
 			var request = WebRequest.Create(string.Format(UrlPattern, @base.ToLower(), alt.ToLower()));
 			var response = (HttpWebResponse)request.GetResponse();
@@ -22,7 +22,7 @@ namespace MarketGarden.Readers
 
 			//check data is not too old ? 
 			//Console.WriteLine(ticker.ToString());
-			var pic = new Picus
+			var pic = new Market
 			{
 				Ask = ParserCSV.ParseDouble(ticker["buy"].ToString()),
 				Bid = ParserCSV.ParseDouble(ticker["sell"].ToString()),
@@ -38,6 +38,11 @@ namespace MarketGarden.Readers
 			{
 				return "btce";
 			} 
+		}
+
+		string IMarketReader.TradeUrlGui(string @base, string alt)
+		{
+			return string.Format("https://btc-e.com/exchange/{0}_{1}", @base.ToLower(), alt.ToLower());
 		}
 	}
 }

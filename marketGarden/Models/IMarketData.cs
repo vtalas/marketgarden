@@ -2,7 +2,7 @@ using System;
 
 namespace marketGarden.Models
 {
-	public interface IPicusData
+	public interface IMarketData
 	{
 		DateTime DateTimeUtc { get; set; }
 		string ToTsvLine();

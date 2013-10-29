@@ -18,7 +18,7 @@ namespace marketGarden.test
 			return new MarketDataLoader(new ParserCSV(), pathResolver);
 		}
 
-		public void Dump(IEnumerable<Picus> list)
+		public void Dump(IEnumerable<Market> list)
 		{
 			foreach (var item in list)
 			{

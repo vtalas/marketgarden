@@ -1,13 +1,14 @@
 using System;
 using System.Globalization;
+using MarketGarden;
 using MarketGarden.Loaders;
 
 namespace marketGarden.Models
 {
-	public class PicusDiff : IPicusData
+	public class MarketDiff : IMarketData
 	{
-		public string BuyMarket { get; set; }
-		public string SellMarket { get; set; }
+		public MarketWithInfo BuyMarket { get; set; }
+		public MarketWithInfo SellMarket { get; set; }
 		public double Ask { get; set; }
 		public double Bid { get; set; }
 		public DateTime DateTimeUtc { get; set; }
@@ -20,7 +21,7 @@ namespace marketGarden.Models
 
 		public string ToTsvLine()
 		{
-			return string.Format("{0}\t{1}\t{2}_{3}\t{4}\t{5}\t{6}\n", DateTimeUtc.ToTimestamp(),DateTimeUtcSellMarket.ToTimestamp(), BuyMarket, SellMarket, 
+			return string.Format("{0}\t{1}\t{2}_{3}\t{4}\t{5}\t{6}\n", DateTimeUtc.ToTimestamp(),DateTimeUtcSellMarket.ToTimestamp(), BuyMarket.MarketName, SellMarket.MarketName, 
 				(Bid - Ask).ToString(CultureInfo.InvariantCulture), 
 				Ask.ToString(CultureInfo.InvariantCulture), 
 				Bid.ToString(CultureInfo.InvariantCulture));
@@ -28,7 +29,7 @@ namespace marketGarden.Models
 
 		public string ToTsvLineReadable()
 		{
-			return string.Format("{0}\t{1} (UTC) \t{2}_{3} \t{4} \t{5} \t{6}\n", DateTimeUtc.ToLocalTime(), DateTimeUtc, BuyMarket, SellMarket, 
+			return string.Format("{0}\t{1} (UTC) \t{2}_{3} \t{4} \t{5} \t{6}\n", DateTimeUtc.ToLocalTime(), DateTimeUtc, BuyMarket.MarketName, SellMarket.MarketName, 
 				(Bid - Ask).ToString(CultureInfo.InvariantCulture), 
 				Ask.ToString(CultureInfo.InvariantCulture), 
 				Bid.ToString(CultureInfo.InvariantCulture));

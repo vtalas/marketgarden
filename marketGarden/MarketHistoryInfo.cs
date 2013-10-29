@@ -17,20 +17,20 @@ namespace MarketGarden
 			Loader = loader;
 		}
 
-		public IList<Picus> GetInfo(DateTime from, DateTime to)
+		public IList<Market> GetInfo(DateTime from, DateTime to)
 		{
 			return Loader.GetInterval(from, to).ToList();
 		}
 
-		public IList<Picus> GetInfo(DateTime from)
+		public IList<Market> GetInfo(DateTime from)
 		{
-			var x = new List<Picus>();
+			var x = new List<Market>();
 			return x;
 		}
 
-		public IList<Picus> GetInfo()
+		public IList<Market> GetInfo()
 		{
-			var x =  new  List<Picus>();
+			var x =  new  List<Market>();
 			return x;
 		}
 	}

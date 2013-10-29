@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using MarketGarden;
 using marketGarden.Models;
 using MarketGarden.RecordProcessor;
@@ -9,27 +8,26 @@ namespace marketGarden
 {
 	public class Chochoo
 	{
-		public List<PicusWithName> Picuses { get; set; }
+		public List<MarketWithInfo> Picuses { get; set; }
 		public IMarketRecordProcessor RecordProcessor { get; set; }
 
-		public Chochoo(List<PicusWithName> picuses, IMarketRecordProcessor recordProcessor)
+		public Chochoo(List<MarketWithInfo> picuses, IMarketRecordProcessor recordProcessor)
 		{
 			Picuses = picuses;
 			RecordProcessor = recordProcessor;
 		}
 
-		public PicusDiff Process()
+		public MarketDiff Process()
 		{
 			var minAsk = Picuses.OrderBy(a => a.Ask).First();
 			var maxBid = Picuses.OrderByDescending(u => u.Bid).First();
 
-
 			if (minAsk.Ask < maxBid.Bid)
 			{
-				var diff  = new PicusDiff
+				var diff  = new MarketDiff
 				{
-					BuyMarket = minAsk.MarketName,
-					SellMarket = maxBid.MarketName,
+					BuyMarket = minAsk,
+					SellMarket = maxBid,
 					Ask = minAsk.Ask,
  					Bid = maxBid.Bid,
 					DateTimeUtc = minAsk.DateTimeUtc,

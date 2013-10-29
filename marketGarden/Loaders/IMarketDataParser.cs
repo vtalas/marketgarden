@@ -7,7 +7,7 @@ namespace MarketGarden.Loaders
 {
 	public interface IMarketDataParser
 	{
-		Picus ParseRecord(string record);
+		Market ParseRecord(string record);
 		long ParseDate(string record);
 	}
 
@@ -18,11 +18,11 @@ namespace MarketGarden.Loaders
 		private const int DateTimePosition = 2;
 		private readonly char[] _separator = new[] { '\t' };
 
-		public Picus ParseRecord(string record)
+		public Market ParseRecord(string record)
 		{
 			var array = record.Split(_separator);
 
-			return new Picus()
+			return new Market()
 			{
 				Ask = ParseDouble(array[AskPosition]),
 				Bid = ParseDouble(array[BidPosition]),

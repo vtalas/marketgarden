@@ -11,7 +11,7 @@ namespace MarketGarden.Readers
 	{
 		private const string UrlPattern = "https://vircurex.com/api/get_info_for_1_currency.json?base={0}&alt={1}";
 
-		public Picus ReadData(string @base, string alt)
+		public Market ReadData(string @base, string alt)
 		{
 			var request = WebRequest.Create(string.Format(UrlPattern, @base, alt));
 			var response = (HttpWebResponse)request.GetResponse();
@@ -20,7 +20,7 @@ namespace MarketGarden.Readers
 			var json = JObject.Parse(rawJson); 
 
 			//Console.WriteLine(json);
-			var pic = new Picus
+			var pic = new Market
 			{
 				Ask = ParserCSV.ParseDouble(json["lowest_ask"].ToString()),
 				Bid = ParserCSV.ParseDouble(json["highest_bid"].ToString()),
@@ -37,5 +37,9 @@ namespace MarketGarden.Readers
 			}
 		}
 
+		string IMarketReader.TradeUrlGui(string @base, string alt)
+		{
+			return "vircurex.com";
+		}
 	}
 }

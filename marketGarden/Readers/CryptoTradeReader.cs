@@ -10,8 +10,9 @@ namespace MarketGarden.Readers
 	public class CryptoTradeReader : IMarketReader
 	{
 		private const string UrlPattern = "https://crypto-trade.com/api/1/ticker/{0}_{1}";
+		private const string UrlTradePattern = "https://crypto-trade.com/trade/{0}_{1}";
 
-		public Picus ReadData(string @base, string alt)
+		public Market ReadData(string @base, string alt)
 		{
 			var request = WebRequest.Create(string.Format(UrlPattern, @base.ToLower(), alt.ToLower()));
 			var response = (HttpWebResponse)request.GetResponse();
@@ -20,7 +21,7 @@ namespace MarketGarden.Readers
 			var json = JObject.Parse(rawJson)["data"]; 
 
 			//Console.WriteLine(json);
-			var pic = new Picus
+			var pic = new Market
 			{
 				Ask = ParserCSV.ParseDouble(json["min_ask"].ToString()),
 				Bid = ParserCSV.ParseDouble(json["max_bid"].ToString()),
@@ -37,5 +38,9 @@ namespace MarketGarden.Readers
 			}
 		}
 
+		public string TradeUrlGui (string @base, string alt)
+		{
+			return string.Format(UrlTradePattern, @base.ToLower(), alt.ToLower());
+		}
 	}
 }

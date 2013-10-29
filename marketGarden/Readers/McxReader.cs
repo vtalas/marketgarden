@@ -11,7 +11,7 @@ namespace MarketGarden.Readers
 	{
 		private const string UrlPattern = "https://mcxnow.com/orders?cur={0}";
 
-		public Picus ReadData(string @base, string alt)
+		public Market ReadData(string @base, string alt)
 		{
 			var request = WebRequest.Create(string.Format(UrlPattern, @base));
 
@@ -24,7 +24,7 @@ namespace MarketGarden.Readers
 			var bidString = doc.Descendants("buy").Descendants("o").Descendants("p").First();
 			var volume = doc.Descendants("curvol").First();
 
-			var pic = new Picus()
+			var pic = new Market()
 			{
 				Ask = ParserCSV.ParseDouble(askString.Value),
 				Bid = ParserCSV.ParseDouble(bidString.Value),
@@ -41,5 +41,11 @@ namespace MarketGarden.Readers
 			}
 		}
 
+		string IMarketReader.TradeUrlGui(string @base, string alt)
+		{
+			return string.Format("https://mcxnow.com/exchange/{0}", @base.ToUpper());
+		}
+
+		public string TradeUrlGui { get; set; }
 	}
 }

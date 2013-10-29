@@ -30,7 +30,7 @@ namespace MarketGarden.Loaders
 		/// <param name="from"></param>
 		/// <param name="to"></param>
 		/// <returns></returns>
-		public IQueryable<Picus> GetInterval(DateTime @from, DateTime to)
+		public IQueryable<Market> GetInterval(DateTime @from, DateTime to)
 		{
 			var filename = PathResolver.GetFilename(to);
 
@@ -45,12 +45,12 @@ namespace MarketGarden.Loaders
 			}, filename).AsQueryable();
 		}
 
-		public IQueryable<Picus> GetInterval(DateTime @from)
+		public IQueryable<Market> GetInterval(DateTime @from)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IQueryable<Picus> GetOffset(long seconds)
+		public IQueryable<Market> GetOffset(long seconds)
 		{
 			throw new NotImplementedException();
 		}
@@ -61,9 +61,9 @@ namespace MarketGarden.Loaders
 		/// <param name="parseLineFunction"></param>
 		/// <param name="filename"></param>
 		/// <returns></returns>
-		private IEnumerable<Picus> LoadData(Func<string, Picus> parseLineFunction, string filename)
+		private IEnumerable<Market> LoadData(Func<string, Market> parseLineFunction, string filename)
 		{
-			var z = new List<Picus>();
+			var z = new List<Market>();
 			var counter = 0;
 			
 			if (!File.Exists(filename))

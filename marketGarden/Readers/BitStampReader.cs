@@ -11,7 +11,7 @@ namespace MarketGarden.Readers
 	{
 		private const string UrlPattern = "https://www.bitstamp.net/api/ticker/";
 
-		public Picus ReadData(string @base, string alt)
+		public Market ReadData(string @base, string alt)
 		{
 			var request = WebRequest.Create(UrlPattern);
 			var response = (HttpWebResponse)request.GetResponse();
@@ -21,7 +21,7 @@ namespace MarketGarden.Readers
 
 			//check data is not too old ? 
 			//Console.WriteLine(ticker.ToString());
-			var pic = new Picus
+			var pic = new Market
 			{
 				Ask = ParserCSV.ParseDouble(ticker["ask"].ToString()),
 				Bid = ParserCSV.ParseDouble(ticker["bid"].ToString()),
@@ -37,6 +37,11 @@ namespace MarketGarden.Readers
 			{
 				return "bitstamp";
 			}
+		}
+
+		string IMarketReader.TradeUrlGui(string @base, string alt)
+		{
+			return "https://www.bitstamp.net";
 		}
 	}
 }

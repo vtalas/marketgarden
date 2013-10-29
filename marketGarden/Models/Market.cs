@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace marketGarden.Models
 {
-	public class Picus : IPicusData
+	public class Market : IMarketData
 	{
 		[JsonIgnore]
 		public DateTime DateTimeUtc {get; set; }
